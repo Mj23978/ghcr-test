@@ -1,4 +1,4 @@
-name: Build Docker Backend
+name: Build Docker Celery
 
 on: 
   push:
@@ -16,7 +16,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: superagi_backend
+  IMAGE_NAME: superagi_celery
 
 jobs:
   build-and-push:
@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build . --file DockerfileCelery --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Push image
         run: |
