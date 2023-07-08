@@ -2,7 +2,7 @@ version: '3.8'
 services:
 
   backend:
-    image: ghcr.io/mj23978/superagi_backend:latest
+    build: .
     volumes:
       - "./:/app"
     depends_on:
@@ -12,7 +12,9 @@ services:
       - super_network
 
   celery:
-    image: ghcr.io/mj23978/superagi_celery:latest
+    build:
+      context: .
+      dockerfile: DockerfileCelery
     volumes:
       - "./:/app"
       - "${EXTERNAL_RESOURCE_DIR:-./workspace}:/app/ext"
@@ -23,7 +25,7 @@ services:
       - super_network
 
   gui:
-    image: ghcr.io/mj23978/superagi_gui:latest
+    build: ./gui
     environment:
       - NEXT_PUBLIC_API_BASE_URL=/api
     networks:
